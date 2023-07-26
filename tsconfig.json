@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "target": "es2015",
+    "module": "ESNext",
+    "noEmitOnError": true,
+    "types": [
+      "node"
+    ],
+    "moduleResolution": "NodeNext",
+    "lib": [
+      "es2017",
+      "DOM"
+    ],
+    "esModuleInterop": false,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+  },
+  "include": [
+    "cli.ts"
+  ],
+}
