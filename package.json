@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "cli.ts",
-  "bin": "./dist/bundle.js",
+  "bin": "bundle.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

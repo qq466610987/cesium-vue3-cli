@@ -30,6 +30,7 @@ inquirer.prompt([
   }
 ]).then(answers => {
   // const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const __dirname = path.dirname(fileURLToPath(import.meta.url))
   const destUrl = path.join(__dirname, 'template');
   const projectName = answers.projectName
   const cwdUrl = process.cwd();
@@ -55,15 +56,6 @@ inquirer.prompt([
 
   // render base templates
   render('base')
-
-  fs.readdir(destUrl, (err, files) => {
-    if (err) throw err;
-    files.forEach((file) => {
-      ejs.renderFile<any>(path.join(destUrl, file), answers).then((data: string | NodeJS.ArrayBufferView) => {
-        fs.writeFileSync(path.join(cwdUrl, file), data)
-      })
-    })
-  })
 })
 
 function init() {
@@ -80,8 +72,10 @@ function renderTemplate(src, dest, callbacks) {
     if (path.basename(src) === 'node_modules') {
       return
     }
-    // if it's a directory, render its subdirectories and files recursively
+    // 
     fs.mkdirSync(dest, { recursive: true })
+    console.log(fs.readdirSync(src))
+    // 读取src下所有的文件（包括目录）,并调用renderTemplate渲染到目标文件夹
     for (const file of fs.readdirSync(src)) {
       renderTemplate(path.resolve(src, file), path.resolve(dest, file), callbacks)
     }

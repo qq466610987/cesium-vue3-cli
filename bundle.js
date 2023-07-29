@@ -1,8 +1,8 @@
 #! /usr/bin/env node
 import inquirer from 'inquirer';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import fs from 'fs';
-import ejs from 'ejs';
 
 const isObject = (val) => val && typeof val === 'object';
 const mergeArrayWithDedupe = (a, b) => Array.from(new Set([...a, ...b]));
@@ -64,7 +64,8 @@ inquirer.prompt([
     }
 ]).then(answers => {
     // const __dirname = path.dirname(fileURLToPath(import.meta.url));
-    const destUrl = path.join(__dirname, 'template');
+    const __dirname = path.dirname(fileURLToPath(import.meta.url));
+    path.join(__dirname, 'template');
     const projectName = answers.projectName;
     const cwdUrl = process.cwd();
     const root = path.join(cwdUrl, projectName);
@@ -85,15 +86,6 @@ inquirer.prompt([
     }
     // render base templates
     render('base');
-    fs.readdir(destUrl, (err, files) => {
-        if (err)
-            throw err;
-        files.forEach((file) => {
-            ejs.renderFile(path.join(destUrl, file), answers).then((data) => {
-                fs.writeFileSync(path.join(cwdUrl, file), data);
-            });
-        });
-    });
 });
 function renderTemplate(src, dest, callbacks) {
     const stats = fs.statSync(src);
@@ -104,6 +96,7 @@ function renderTemplate(src, dest, callbacks) {
         }
         // if it's a directory, render its subdirectories and files recursively
         fs.mkdirSync(dest, { recursive: true });
+        console.log(fs.readdirSync(src));
         for (const file of fs.readdirSync(src)) {
             renderTemplate(path.resolve(src, file), path.resolve(dest, file));
         }
