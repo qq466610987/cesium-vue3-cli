@@ -9,8 +9,16 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup --config config/rollup.config.js"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qq466610987/cesium-vue3-cli"
+  },
+  "keywords": [
+    "cesium",
+    "vite",
+    "cli"
+  ],
+  "author": "nicander",
   "license": "ISC",
   "dependencies": {
     "@types/commander": "^2.12.2",
